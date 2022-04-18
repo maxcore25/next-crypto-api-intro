@@ -1,9 +1,9 @@
 import styles from './SearchBar.module.scss';
 
-const SearchBar = () => {
+const SearchBar = ({ ...rest }) => {
   return (
-    <div>
-      <input type='text' />
+    <div className={styles.coin_search}>
+      <input className={styles.coin_input} {...rest} />
     </div>
   );
 };
