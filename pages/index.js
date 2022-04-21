@@ -1,17 +1,32 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { useState } from 'react';
 import CoinList from '../components/CoinList';
 import Layout from '../components/Layout';
 import SearchBar from '../components/SearchBar';
 
 export default function Home({ filteredCoins }) {
   console.log(filteredCoins);
+  const [search, setSearch] = useState('');
+
+  const allCoins = filteredCoins.filter(coin =>
+    coin.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const handleChange = e => {
+    e.preventDefault();
+    setSearch(e.target.value.toLowerCase());
+  };
 
   return (
     <Layout>
       <div className='coin_app'>
-        <SearchBar type='text' placeholder='Search' />
-        <CoinList filteredCoins={filteredCoins} />
+        <SearchBar
+          type='text'
+          placeholder='Search'
+          onChange={e => handleChange(e)}
+        />
+        <CoinList filteredCoins={allCoins} />
       </div>
     </Layout>
   );
